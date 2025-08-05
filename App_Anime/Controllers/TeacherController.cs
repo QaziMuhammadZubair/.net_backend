@@ -13,12 +13,14 @@ namespace App_Anime.Controllers
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _service;
+        private readonly IDepartmentService _departmentService;
         private readonly IMapper _mapper;
 
-        public TeacherController(ITeacherService service, IMapper mapper)
+        public TeacherController(ITeacherService service, IMapper mapper, IDepartmentService departmentService)
         {
             _service = service;
             _mapper = mapper;
+            _departmentService = departmentService;
         }
 
         [HttpGet]
@@ -42,6 +44,10 @@ namespace App_Anime.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] TeacherVm vm)
         {
+            if(_departmentService.GetAll().All(d => d.Id != vm.DepartmentID))
+            {
+                return BadRequest("Invalid Department ID");
+            }
             var teacher = _mapper.Map<Teacher>(vm);
             _service.Create(teacher);
             var createdVm = _mapper.Map<TeacherVm>(teacher);
