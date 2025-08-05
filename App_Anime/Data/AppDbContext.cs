@@ -7,13 +7,15 @@ using App_Anime.model;
 
 namespace App_Anime.Data
 {
-    public class App_AnimeContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public App_AnimeContext (DbContextOptions<App_AnimeContext> options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
 
         public DbSet<App_Anime.model.Anime> Anime { get; set; } = default!;
+        public DbSet<Teacher> Teachers { get; set; }
+
     }
 }

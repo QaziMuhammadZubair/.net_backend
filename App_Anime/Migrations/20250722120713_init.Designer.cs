@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App_Anime.Migrations
 {
-    [DbContext(typeof(App_AnimeContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250722120713_init")]
     partial class init
     {
