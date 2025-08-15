@@ -14,7 +14,11 @@ namespace App_Anime.Services
 
         public IEnumerable<Teacher> GetAll() => _repository.GetAll();
 
-        public Teacher? GetById(int id) => _repository.GetById(id);
+        public async Task<Teacher> GetById(int id)
+        {
+            var findData = await _repository.GetById(id);
+            return findData;
+        }
 
         public void Create(Teacher teacher)
         {
@@ -22,10 +26,11 @@ namespace App_Anime.Services
             _repository.Save();
         }
 
-        public void Update(Teacher teacher)
+        public async Task Update(Teacher teacher)
+
         {
-            _repository.Update(teacher);
-            _repository.Save();
+            await _repository.Update(teacher);
+           await _repository.Save();
         }
 
         public void Delete(int id)
