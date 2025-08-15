@@ -44,7 +44,7 @@ namespace App_Anime.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] TeacherVm vm)
         {
-            if(_departmentService.GetAll().All(d => d.Id != vm.DepartmentID))
+            if (_departmentService.GetAll().All(d => d.Id != vm.DepartmentID))
             {
                 return BadRequest("Invalid Department ID");
             }
@@ -55,16 +55,18 @@ namespace App_Anime.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] TeacherVm vm)
+        public async Task<IActionResult> Update(int id, [FromBody] TeacherVm vm)
         {
             if (id != vm.Id) return BadRequest();
 
-            var existing = _service.GetById(id);
+            var existing = await _service.GetById(id);
             if (existing == null) return NotFound();
 
+
+            //existing.Name = vm.Name;
             var updatedTeacher = _mapper.Map<Teacher>(vm);
-            _service.Update(updatedTeacher);
-            return NoContent();
+            await _service.Update(updatedTeacher);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

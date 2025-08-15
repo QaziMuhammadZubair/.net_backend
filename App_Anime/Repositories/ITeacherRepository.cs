@@ -5,10 +5,10 @@ namespace App_Anime.Repositories
     public interface ITeacherRepository
     {
         IEnumerable<Teacher> GetAll();
-        Teacher? GetById(int id);
+        Task<Teacher> GetById(int id);
         void Add(Teacher teacher);
-        void Update(Teacher teacher);
+        Task Update(Teacher teacher);
         void Delete(int id);
-        void Save();
+        Task Save();
     }
 }
