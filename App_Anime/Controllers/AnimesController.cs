@@ -16,9 +16,9 @@ namespace App_Anime.Controllers
     [EnableCors()]
     public class AnimesController : ControllerBase
     {
-        private readonly App_AnimeContext _context;
+        private readonly AppDbContext _context;
 
-        public AnimesController(App_AnimeContext context)
+        public AnimesController(AppDbContext context)
         {
             _context = context;
         }
